@@ -1,0 +1,55 @@
+[gd_scene load_steps=12 format=3 uid="uid://c3rkmx2ax8jth"]
+
+[ext_resource type="PackedScene" uid="uid://cb3wmx74rsklp" path="res://Scenes/star.tscn" id="1_2q6vp"]
+[ext_resource type="Texture2D" uid="uid://b70c5aj1xnqto" path="res://Assets/space background.png" id="1_3ykmt"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_7iknc"]
+[ext_resource type="PackedScene" uid="uid://dm8u182esw05c" path="res://Scenes/wet_world.tscn" id="2_8kllb"]
+[ext_resource type="PackedScene" uid="uid://bu5gs3ptpokjl" path="res://Scenes/lava_world.tscn" id="3_r6mf0"]
+[ext_resource type="Script" path="res://Scripts/star.gd" id="4_6wlr6"]
+[ext_resource type="Script" path="res://Scripts/wet_world.gd" id="6_qjih5"]
+[ext_resource type="Script" path="res://Scripts/lava_world.gd" id="8_up3cp"]
+[ext_resource type="PackedScene" uid="uid://blxtdubnb2en2" path="res://Scenes/ice_world.tscn" id="9_dkyn8"]
+[ext_resource type="PackedScene" uid="uid://cfygq7eok8mon" path="res://Scenes/moon.tscn" id="9_onv53"]
+[ext_resource type="PackedScene" uid="uid://baawji6h8wnxu" path="res://Scenes/gas_giant.tscn" id="11_vtk0s"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_7iknc")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(0.999841, 2.50006)
+scale = Vector2(9, 9)
+texture = ExtResource("1_3ykmt")
+
+[node name="star" parent="." instance=ExtResource("1_2q6vp")]
+script = ExtResource("4_6wlr6")
+
+[node name="Camera2D" type="Camera2D" parent="star"]
+zoom = Vector2(0.135, 0.135)
+
+[node name="Pivot" type="Node2D" parent="star"]
+
+[node name="LavaWorld" parent="star/Pivot" instance=ExtResource("3_r6mf0")]
+position = Vector2(0, 500)
+script = ExtResource("8_up3cp")
+metadata/rotational_difference = 5.0
+
+[node name="Pivot2" type="Node2D" parent="star"]
+
+[node name="WetWorld" parent="star/Pivot2" instance=ExtResource("2_8kllb")]
+position = Vector2(0, 900)
+script = ExtResource("6_qjih5")
+
+[node name="PivotWetWorld" type="Node2D" parent="star/Pivot2/WetWorld"]
+
+[node name="moon" parent="star/Pivot2/WetWorld/PivotWetWorld" instance=ExtResource("9_onv53")]
+position = Vector2(0, 150)
+
+[node name="Pivot3" type="Node2D" parent="star"]
+
+[node name="IceWorld" parent="star/Pivot3" instance=ExtResource("9_dkyn8")]
+position = Vector2(0, 1400)
+
+[node name="Pivot4" type="Node2D" parent="star"]
+
+[node name="GasGiant" parent="star/Pivot4" instance=ExtResource("11_vtk0s")]
+position = Vector2(0, 2000)
